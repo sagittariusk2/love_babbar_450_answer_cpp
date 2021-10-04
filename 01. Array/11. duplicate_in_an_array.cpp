@@ -1,3 +1,8 @@
+/* 
+    Question Link :- (https://leetcode.com/problems/find-the-duplicate-number/)
+    find duplicate in an array of N+1 Integers
+*/
+
 /*
     ----@sagittarius_k2-----
     Created by Ritesh Ranjan

@@ -1,6 +1,6 @@
 /* 
-    Question Link :- (https://leetcode.com/problems/next-permutation/)
-    Next Permutation
+    Question Link :- (https://practice.geeksforgeeks.org/problems/kadanes-algorithm/0)
+    Kadane's Algo [V.V.V.V.V IMP]
 */
 
 /*
