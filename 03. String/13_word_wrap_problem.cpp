@@ -15,38 +15,22 @@ using namespace std;
 #define int long long int
 #define M 1000000007
 
+int ans1=INT_MAX;
+
+void fun(vector<int> &a, int word, int line, int space_taken, int ans, int k) {
+    if(space_taken<=k) {
+        if(word==a.size()-1) {
+            ans1 = min(ans1, ans);
+        } else {
+            fun(a, word+1, line, space_taken+1+a[word+1], ans, k);
+            fun(a, word+1, line+1, a[word+1], ans+((k-space_taken)*(k-space_taken)), k);
+        }
+    }
+}
+
 int solveWordWrap(vector<int> arr, int k) {
-    int n = arr.size();
-
-    vector<vector<int>> lc(n+1, vector<int>(n+1, -1));
-
-    for(int i=1; i<=n; i++) {
-        for(int j=1; j<=n; j++) {
-            if(i==j) lc[i][j] = arr[j-1];
-            else {
-                lc[i][j] = lc[i][j-1]+arr[j-1]+1;
-            }
-        }
-    }
-
-    for(int i=1; i<=n; i++) {
-        for(int j=1; j<=n; j++) {
-            if(lc[i][j]!=-1)
-                lc[i][j] = (k-lc[i][j])*(k-lc[i][j]);
-        }
-    }
-
-    int c[n+1];
-    c[0]=0;
-    for(int j=1; j<=n; j++) {
-        int x = INT_MAX;
-        for(int i=1; i<=j; i++) {
-            x = min(x, c[i-1]+lc[i][j]);
-        }
-        c[j] = x;
-    }
-
-    return c[n];
+    fun(arr, 0, 0, arr[0], 0, k);
+    return ans1;
 }
 
 signed main() {
@@ -68,5 +52,5 @@ signed main() {
 
 /*
     Time Complexity :- O(n^2)
-    Space Complexity :- O(n)
+    Space Complexity :- O(n^2)
 */
