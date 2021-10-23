@@ -15,22 +15,11 @@ using namespace std;
 #define int long long int
 #define M 1000000007
 
-// Brute Force :- Time complexity :- O(n^2), Space Complexity :- O(1)
-
-// Binary Search approach
-
-vector<int> find(int arr[], int n , int x ) {
-    // Initialize answer with value -1
-    vector<int> ans(2, -1);
-
-    // If element is present then update the answer
-    if(binary_search(arr, arr+n, x)) {
-        // lower_bound of the element
-        ans[0]=lower_bound(arr, arr+n, x)-arr;
-
-        // Upper bound of the element
-        ans[1] = upper_bound(arr, arr+n, x)-1-arr;
-    }
+vector<int> valueEqualToIndex(int arr[], int n) {
+	vector<int> ans;
+    for(int i=0; i<n; i++) {
+	    if(arr[i]==i+1) ans.push_back(arr[i]);
+	}
     return ans;
 }
 
@@ -38,14 +27,14 @@ signed main() {
     int t;
     cin>>t;
     while(t--) {
-        int n, x;
-        cin>>n>>x;
+        int n;
+        cin>>n;
         int nums[n];
         for(int i=0; i<n; i++) {
             cin>>nums[i];
         }
 
-        vector<int> ans = find(nums, n, x);
+        vector<int> ans = valueEqualToIndex(nums, n);
 
         for(auto i:ans) {
             cout<<i<<" ";
