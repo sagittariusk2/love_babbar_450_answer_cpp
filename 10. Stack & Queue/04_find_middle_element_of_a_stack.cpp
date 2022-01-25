@@ -39,7 +39,21 @@ public:
     void deleteMiddle();
     bool isEmpty();
     int size();
+    void print();
 };
+
+template <typename T>
+void myStack<T>::print() {
+    Node<T> *temp = curr;
+    cout << "[";
+    if(temp) cout << temp->val;
+    temp=temp->back;
+    while(temp) {
+        cout << ", " << temp->val;
+        temp = temp->back;
+    }
+    cout << "]" << endl;
+}
 
 template <typename T>
 myStack<T>::myStack() {
@@ -66,7 +80,7 @@ void myStack<T>::push(T val) {
     temp->back = curr;
 
     if(curr) {
-        curr->back = temp;
+        curr->next = temp;
     }
     curr=temp;
 
@@ -78,16 +92,15 @@ void myStack<T>::push(T val) {
         }
     }
 
-    cout<<curr<<" "<<mid->next<<"\n";
+    // cout<<curr<<" "<<mid->next<<"\n";
 }
 
 template <typename T>
 void myStack<T>::pop() {
     if(curr) {
         len--;
-        Node<T> *temp = curr->back;
-        if(curr->back) curr->back->next = nullptr;
-        curr = temp;
+        curr = curr->back;
+        if(curr) curr->next=nullptr;
         if(len%2==0) {
             mid=mid->back;
         }
@@ -117,32 +130,35 @@ T myStack<T>::findMiddle() {
 
 template <typename T>
 void myStack<T>::deleteMiddle() {
-    
+    if(len==1) {
+        len--;
+        curr=nullptr;
+        mid=nullptr;
+    } else if(len==2) {
+        mid=curr;
+        len--;
+        curr->back=nullptr;
+    } else {
+        len--;
+        Node<T> *p = mid->back;
+        Node<T> *q = mid->next;
+        p->next=q;
+        q->back=p;
+    }
 }
 
 signed main() {
-    myStack<string> st;
-    st.push("Janhavi");
-    // cout<<st.findMiddle()<<"\n";
-    st.push("Ritesh");
-    // cout<<st.findMiddle()<<"\n";
-    st.push("Lucky");
-    // cout<<st.findMiddle()<<"\n";
-    st.push("Manvir");
-    // cout<<st.findMiddle()<<"\n";
-    st.push("Rahul");
-    // cout<<st.findMiddle()<<"\n";
-    st.push("Chhote Lal");
-    // cout<<st.findMiddle()<<"\n";
-    st.push("Manhar");
-    // cout<<st.findMiddle()<<"\n";
-    // cout<<st.top()<<" "<<st.size()<<"\n";
-    // st.pop();
-    // cout<<st.top()<<" "<<st.size()<<"\n";
-    // st.pop();
-    // cout<<st.top()<<" "<<st.size()<<"\n";
-    // st.pop();
-    // st.pop();
+    myStack<int> st;
+    st.push(1);
+    st.push(3);
+    st.push(5);
+    st.push(7);
+    st.push(9);
+    st.push(11);
+    cout << st.findMiddle() << endl;
+    st.print();
+    st.deleteMiddle();
+    st.print();
 }
 
 /*
